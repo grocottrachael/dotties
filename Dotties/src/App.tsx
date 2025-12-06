@@ -48,19 +48,21 @@ export default function App() {
     img.src = defaultImageUrl;
   }, []);
 
-  // Apply mode-specific defaults when method changes
+  // Apply mode-specific defaults when method changes, but ONLY for the default image
   useEffect(() => {
-    if (method === 'halftone') {
-      setDotSize(2);
-      setSpacing(3);
-    } else if (method === 'ordered') {
-      setDotSize(1.5);
-      setSpacing(2);
-    } else if (method === 'ascii') {
-      setDotSize(1.5);
-      setSpacing(2.5);
+    if (isDefaultImage) {
+      if (method === 'halftone') {
+        setDotSize(2);
+        setSpacing(3);
+      } else if (method === 'ordered') {
+        setDotSize(1.5);
+        setSpacing(2);
+      } else if (method === 'ascii') {
+        setDotSize(1.5);
+        setSpacing(2.5);
+      }
     }
-  }, [method]);
+  }, [method, isDefaultImage]);
 
   useEffect(() => {
     if (image && canvasRef.current) {
